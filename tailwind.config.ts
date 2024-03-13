@@ -21,6 +21,7 @@ const config = {
         margarine: ['var(--font-margarine)'],
       },
       colors: {
+        yellowd: '#ffea00',
         orangey: '#ff6d1a',
         dark_orangey: '#b44f16',
         off_white: '#ecebe4',
