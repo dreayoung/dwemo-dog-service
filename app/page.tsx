@@ -13,7 +13,7 @@ import logoMobile from '../public/logo-mobile.svg';
 export default function Home() {
   return (
     <>
-      <main className="relative flex flex-col items-center pt-10 text-center gap-6">
+      <main className="relative flex flex-col items-center pt-6 md:pt-10 text-center gap-4">
         <Image
           src={logoHome}
           alt="logo home"
@@ -51,7 +51,7 @@ export default function Home() {
           <div className="relative w-80">
             <Image src={doggy} alt="doggy" className="" />
           </div>
-          <div className="relative w-72 md:w-96 -bottom-2">
+          <div className="relative w-64 md:w-96 -bottom-2">
             <Image
               src={logoMobile}
               alt="logo home"
