@@ -3,7 +3,7 @@
 import Image from 'next/image';
 
 import { motion } from 'framer-motion';
-import { fadeIn, slideInFromBottom, slideInFromLeft } from './utils/motion';
+import { fadeIn, slideInFromBottom } from './utils/motion';
 import { LockKeyhole, Search, Instagram } from 'lucide-react';
 
 import doggy from './puppy1.png';
