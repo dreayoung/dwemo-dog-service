@@ -42,10 +42,9 @@ export function slideInFromTop(delay: number) {
 
 export function slideInFromBottom(delay: number) {
   return {
-    hidden: { y: 100, opacity: 0 },
+    hidden: { y: 100 },
     visible: {
       y: 0,
-      opacity: 1,
       transition: {
         delay: delay,
         duration: 1.5,
