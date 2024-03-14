@@ -14,7 +14,7 @@ import Menu from './components/menu';
 export default function Home() {
   return (
     <>
-      <main className="relative min-h-screen flex flex-col items-center justify-center text-center gap-6">
+      <main className="relative md:h-screen flex flex-col items-center justify-center pt-10 md:pt-0 text-center gap-6">
         <Image
           src={logoHome}
           alt="logo home"
