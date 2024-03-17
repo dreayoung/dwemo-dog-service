@@ -22,7 +22,7 @@ const config = {
       },
       colors: {
         yellowd: '#ffea00',
-        orangey: '#ff6d1a',
+        orangey: '#d2d7e7',
         dark_orangey: '#b44f16',
         off_white: '#ecebe4',
         border: 'hsl(var(--border))',

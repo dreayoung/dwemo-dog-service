@@ -10,6 +10,8 @@ import doggy from './puppy1.png';
 import logoHome from '../public/home-logo.svg';
 import logoMobile from '../public/logo-mobile.svg';
 import Menu from './components/menu';
+import LoginModal from './components/auth/login';
+import RegisterModal from './components/auth/register';
 
 export default function Home() {
   return (
@@ -31,14 +33,14 @@ export default function Home() {
         </div>
         <div className="h-auto pb-32 lg:pb-10 rounded-[70px] w-24 bg-yellowd flex flex-col items-center pt-10 md:pt-6 lg:pt-10">
           <div className="grid grid-cols-1 place-items-center gap-3 text-sm">
-            <div>login</div>
+            <LoginModal />
             <div className="border border-black rounded-full p-3 w-10 h-10 flex items-center justify-center">
               <LockKeyhole />
             </div>
-            <div>sign up</div>
+            <RegisterModal />
           </div>
           <motion.div
-            variants={slideInFromBottom(0.25)}
+            variants={slideInFromBottom(0.1)}
             initial="hidden"
             animate="visible"
             className="relative w-60 md:w-72"

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { cn } from '@/lib/utils';
+import { cn } from '@/libs/utils';
 import localFont from 'next/font/local';
 import { Bebas_Neue, Margarine, Chilanka } from 'next/font/google';
 import './globals.css';
