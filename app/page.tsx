@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { motion } from 'framer-motion';
 import { fadeIn, slideInFromBottom } from './utils/motion';
-import { LockKeyhole, Search, Instagram } from 'lucide-react';
+import { LockKeyhole, UnlockKeyhole, Search, Instagram } from 'lucide-react';
 
 import doggy from './puppy1.png';
 import logoHome from '../public/home-logo.svg';
@@ -12,8 +12,11 @@ import logoMobile from '../public/logo-mobile.svg';
 import Menu from './components/menu';
 import LoginModal from './components/auth/login';
 import RegisterModal from './components/auth/register';
+import { useUser } from './context/user';
 
 export default function Home() {
+  const contextUser = useUser();
+
   return (
     <>
       <main className="relative md:h-screen flex flex-col items-center justify-center pt-16 md:pt-0 text-center gap-6">
@@ -32,13 +35,22 @@ export default function Home() {
           </div>
         </div>
         <div className="h-auto pb-32 lg:pb-10 rounded-[70px] w-24 bg-yellowd flex flex-col items-center pt-10 md:pt-6 lg:pt-10">
-          <div className="grid grid-cols-1 place-items-center gap-3 text-sm">
-            <LoginModal />
-            <div className="border border-black rounded-full p-3 w-10 h-10 flex items-center justify-center">
-              <LockKeyhole />
+          {!contextUser?.user ? (
+            <div className="grid grid-cols-1 place-items-center gap-3 text-sm">
+              <LoginModal />
+              <div className="border border-black rounded-full p-3 w-10 h-10 flex items-center justify-center">
+                <LockKeyhole />
+              </div>
+              <RegisterModal />
             </div>
-            <RegisterModal />
-          </div>
+          ) : (
+            <div className="grid grid-cols-1 place-items-center gap-3 text-sm">
+              <div className="border border-black rounded-full p-3 w-10 h-10 flex items-center justify-center">
+                <UnlockKeyhole />
+              </div>
+              <div className="hover:cursor-pointer">Log out</div>
+            </div>
+          )}
           <motion.div
             variants={slideInFromBottom(0.1)}
             initial="hidden"

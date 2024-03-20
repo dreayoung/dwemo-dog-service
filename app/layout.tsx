@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import { Bebas_Neue, Margarine, Chilanka } from 'next/font/google';
 import './globals.css';
 import Header from './components/header';
+import UserProvider from './context/user';
 
 const gokil = localFont({
   src: './Gokil.woff2',
@@ -37,10 +38,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(gokil.variable, chilanka.className)}>
-        {/* <Header /> */}
-        {children}
-      </body>
+      <UserProvider>
+        <body className={cn(gokil.variable, chilanka.className)}>
+          {children}
+        </body>
+      </UserProvider>
     </html>
   );
 }

@@ -1,3 +1,7 @@
+import Image from 'next/image';
+import { useState } from 'react';
+import { useUser } from '@/app/context/user';
+import { useRouter } from 'next/navigation';
 import { ShowErrorObject } from '@/app/types';
 import {
   Dialog,
@@ -8,8 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import Image from 'next/image';
-import { useState } from 'react';
 
 import bowl from '@/public/bowl.png';
 import { Loader } from 'lucide-react';
@@ -17,6 +19,9 @@ import OwnerDetails from './ownerDetails';
 import PupDetails from './PupDetails';
 
 function RegisterModal() {
+  const contextUser = useUser();
+  const router = useRouter();
+
   const [loading, setLoading] = useState<boolean>(false);
   const [nextStep, setNextStep] = useState<boolean>(false);
 
@@ -24,7 +29,7 @@ function RegisterModal() {
   const [name, setName] = useState<string | ''>('');
   const [email, setEmail] = useState<string | ''>('');
   const [password, setPassword] = useState<string | ''>('');
-  const [confirmPassword, setConfirmPassword] = useState<string | ''>('');
+  // const [confirmPassword, setConfirmPassword] = useState<string | ''>('');
   const [error, setError] = useState<ShowErrorObject | null>(null);
 
   // PUP DETAILS
@@ -58,17 +63,35 @@ function RegisterModal() {
     } else if (!password) {
       setError({ type: 'password', message: 'A Password is required' });
       isError = true;
-    } else if (password.length < 8) {
-      setError({
-        type: 'password',
-        message: 'The Password needs to be longer',
-      });
-      isError = true;
-    } else if (password != confirmPassword) {
-      setError({ type: 'password', message: 'The Passwords do not match' });
-      isError = true;
+      // } else if (password.length < 8) {
+      //   setError({
+      //     type: 'password',
+      //     message: 'The Password needs to be longer',
+      //   });
+      //   isError = true;
+      // } else if (password != confirmPassword) {
+      //   setError({ type: 'password', message: 'The Passwords do not match' });
+      //   isError = true;
     }
     return isError;
+  };
+
+  const OnRegister = async () => {
+    let isError = validate();
+    if (isError) return;
+    if (!contextUser) return;
+
+    try {
+      setLoading(true);
+      await contextUser.register(name, email, password);
+      setLoading(false);
+      console.log('DONEEEEE');
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      alert(error);
+    }
   };
 
   return (
@@ -134,8 +157,7 @@ function RegisterModal() {
                   Back
                 </button>
                 <button
-                  disabled={loading}
-                  onClick={() => setLoading(true)}
+                  onClick={() => OnRegister()}
                   className={`
                   flex items-center justify-center w-32 text-[17px] rounded-[750px] p-2 text-black mt-4 shadow-sm
                   ${

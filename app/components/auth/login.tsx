@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useUser } from '@/app/context/user';
+import { useRouter } from 'next/navigation';
 import {
   Dialog,
   DialogContent,
@@ -11,6 +14,29 @@ import Image from 'next/image';
 import bowl from '../../../public/jumpy-unscreen.gif';
 
 function LoginModal() {
+  const contextUser = useUser();
+  const router = useRouter();
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [email, setEmail] = useState<string | ''>('');
+  const [password, setPassword] = useState<string | ''>('');
+
+  const OnLogin = async () => {
+    if (!contextUser) return;
+
+    try {
+      setLoading(true);
+      await contextUser.login(email, password);
+      setLoading(false);
+      console.log('logged in');
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      alert(error);
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -41,7 +67,8 @@ function LoginModal() {
                 text-sm
                 shadow-sm
             "
-              value=""
+              value={email || ''}
+              onChange={(e) => setEmail(e.target.value)}
               type="text"
               autoComplete="off"
             />
@@ -65,19 +92,27 @@ function LoginModal() {
                 text-sm
                 shadow-sm
             "
-              value=""
+              value={password || ''}
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               autoComplete="off"
             />
           </div>
-          <div className="bg-yellowd rounded-[750px] w-full p-2 text-black mt-4 shadow-sm">
-            log in
-          </div>
-          <div className="text-xs">
-            don&apos;t have an account?{' '}
-            <span className="text-gray-600 hover:underline hover:cursor-pointer">
-              register here
-            </span>
+          <div className="flex flex-col space-y-2">
+            <button
+              disabled={loading}
+              onClick={() => OnLogin()}
+              className={`w-full text-[17px] rounded-[750px] p-2 text-black mt-4 shadow-sm
+              ${!email || !password ? 'bg-gray-200' : 'bg-yellowd'}`}
+            >
+              login
+            </button>
+            <div className="text-xs">
+              don&apos;t have an account?{' '}
+              <span className="text-gray-600 hover:underline hover:cursor-pointer">
+                register here
+              </span>
+            </div>
           </div>
         </div>
       </DialogContent>
