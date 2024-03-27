@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useState } from 'react';
 import { useUser } from '@/app/context/user';
@@ -24,6 +26,8 @@ function RegisterModal() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [nextStep, setNextStep] = useState<boolean>(false);
+
+  const [open, setOpen] = useState<boolean>(false);
 
   // OWNER DETAILS
   const [name, setName] = useState<string | ''>('');
@@ -93,6 +97,8 @@ function RegisterModal() {
       alert(error);
     }
   };
+
+  // v7aXomTvjBadUOV
 
   return (
     <Dialog>

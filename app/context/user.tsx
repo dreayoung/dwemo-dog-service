@@ -22,11 +22,11 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const checkUser = async () => {
     try {
       const currentSession = await account.getSession('current');
-      console.log('curr', currentSession);
       if (!currentSession) return;
 
       const promise = await account.get();
       const profile = await useGetProfileByUserId(promise?.$id);
+
       console.log('profile', profile);
 
       setUser({
@@ -47,6 +47,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const register = async (name: string, email: string, password: string) => {
     try {
       const promise = await account.create(ID.unique(), email, password, name);
+      await account.createEmailSession(email, password);
 
       await useCreateProfile(
         promise?.$id,

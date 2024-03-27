@@ -24,6 +24,7 @@ export default function Home() {
           src={logoHome}
           alt="logo home"
           className="hidden lg:block absolute -z-10 mx-auto w-[70vw]"
+          priority
         />
         <div className="flex items-center justify-center gap-4">
           <div className="bg-yellowd rounded-full p-3 w-10 h-10 flex items-center justify-center">
@@ -69,6 +70,7 @@ export default function Home() {
               src={logoMobile}
               alt="logo home"
               className="block lg:hidden absolute"
+              priority
             />
           </motion.div>
         </div>
